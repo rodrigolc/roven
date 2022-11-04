@@ -17,6 +17,7 @@ type ServerInterceptorInterface interface {
 	SetReq(req *nodeattestorv1.AttestRequest)
 	CanReattest() []bool
 	SpiffeID() string
+	SetSpiffeID(spiffeID string)
 	CombinedSelectors() []string
 	Stream() nodeattestorv1.NodeAttestor_AttestServer
 	ResetInterceptor()
@@ -98,4 +99,8 @@ func (m *HybridPluginServerInterceptor) CombinedSelectors() []string {
 
 func (m *HybridPluginServerInterceptor) Stream() nodeattestorv1.NodeAttestor_AttestServer {
 	return m.stream
+}
+
+func (m *HybridPluginServerInterceptor) SetSpiffeID(spiffeID string) {
+	m.spiffeID = spiffeID
 }
