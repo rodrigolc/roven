@@ -108,10 +108,7 @@ func (p *HybridPluginServer) Attest(stream nodeattestorv1.NodeAttestor_AttestSer
 			},
 		}
 
-		var newInterceptor ServerInterceptorInterface = &HybridPluginServerInterceptor{}
-		newInterceptor.setCustomStream(stream)
-		newInterceptor.SetContext(stream.Context())
-		newInterceptor.SetLogger(p.logger)
+		var newInterceptor ServerInterceptorInterface = p.interceptor.SpawnInterceptor()
 		newInterceptor.SetReq(newReq)
 		interceptors = append(interceptors, newInterceptor)
 
