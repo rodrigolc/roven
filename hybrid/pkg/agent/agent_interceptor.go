@@ -21,6 +21,7 @@ type AgentInterceptorInterface interface {
 	SendCombined(common.PluginMessageList) error
 	SetPluginName(name string)
 	GetMessage() common.PluginMessage
+	SpawnInterceptor() AgentInterceptorInterface
 }
 
 type HybridPluginAgentInterceptor struct {
@@ -79,4 +80,14 @@ func (m *HybridPluginAgentInterceptor) SendCombined(messageList common.PluginMes
 		},
 	}
 	return m.stream.Send(payload)
+}
+
+func (m *HybridPluginAgentInterceptor) SpawnInterceptor() AgentInterceptorInterface {
+	return &HybridPluginAgentInterceptor{
+		ctx:        m.ctx,
+		stream:     m.stream,
+		logger:     m.logger,
+		payload:    m.payload,
+		pluginName: m.pluginName,
+	}
 }

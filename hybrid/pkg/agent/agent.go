@@ -53,10 +53,7 @@ func (p *HybridPluginAgent) AidAttestation(stream nodeattestorv1.NodeAttestor_Ai
 	interceptors := []AgentInterceptorInterface{}
 
 	for i := 0; i < len(p.pluginList); i++ {
-		var newInterceptor AgentInterceptorInterface = new(HybridPluginAgentInterceptor)
-		newInterceptor.setCustomStream(stream)
-		newInterceptor.SetContext(stream.Context())
-		newInterceptor.SetLogger(p.logger)
+		var newInterceptor AgentInterceptorInterface = p.interceptor.SpawnInterceptor()
 		newInterceptor.SetPluginName(p.pluginList[i].PluginName)
 		interceptors = append(interceptors, newInterceptor)
 
