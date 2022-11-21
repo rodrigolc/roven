@@ -442,14 +442,14 @@ func TestResetInterceptor(t *testing.T) {
 
 	if interceptor.ctx == nil || interceptor.stream == nil || interceptor.logger == nil || interceptor.req == nil || interceptor.Response == nil ||
 		interceptor.combinedSelectors == nil || interceptor.spiffeID == "" || interceptor.canReattest == nil {
-		t.Error("Interceptor is empty")
+		t.Error("Interceptor has not been initialized properly")
 	}
 
 	interceptor.ResetInterceptor()
 
 	if interceptor.ctx != nil || interceptor.stream != nil || interceptor.logger != nil || interceptor.req != nil || interceptor.Response != nil ||
 		interceptor.combinedSelectors != nil || interceptor.spiffeID != "" || interceptor.canReattest != nil {
-		t.Error("Cannot reset interceptor")
+		t.Error("Could not reset interceptor")
 	}
 }
 
